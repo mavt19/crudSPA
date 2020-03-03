@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div align="center">
+		<form th:action="@{/save}" th:object="${person}" method="post">
+			<input type="text" readonly="readonly" th:field="*{id}"><br>
+			<input type="text" th:field="*{name}" placeholder="Ingrese Nombre"><br>
+			<input type="text" th:field="*{lastName}"
+				placeholder="Ingrese Apellido"><br>
+				
+			<input	type="submit" value="Guardar">
+		</form>
+	</div>
+	<br><br>
+	<div align="center">
+		<table border="2">
+			<thead>
+				<tr>
+					<th>#ID</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Fecha Registro</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="list:${lista}">
+
+					<td th:text="${list.id}"></td>
+					<td th:text="${list.name}"></td>
+					<td th:text="${list.lastName}"></td>
+					<td th:text="${list.birthdate}"></td>
+					<td><a th:href="@{/} + ${list.id}"
+							th:text="'Editar'" title="Editar Registro">
+						</a>||
+						<a th:href="@{/remove/} + ${list.id}"
+							th:text="'Eliminar'" title="Eliminar Registro" onclick="return confirm('sure?');">
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
