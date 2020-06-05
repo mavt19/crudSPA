@@ -30,6 +30,7 @@ public class PersonController {
 		{
 			person=_servicePerson.findById(id.get());
 			model.addAttribute("person", person);
+			model.addAttribute("id1", id);
 		}
 		else {
 			model.addAttribute("person", new Person());
@@ -41,9 +42,18 @@ public class PersonController {
 	@PostMapping("/save")
 	public String save(@ModelAttribute Person person)
 	{
-		person.setBirthdate(LocalDate.now());
-		_servicePerson.addOrUpdate(person);
-		
+		if(person.getId()==null) {
+	
+		 _servicePerson.addOrUpdate(person);
+		}else {
+			Person persondb = _servicePerson.findById(person.getId()).get();
+			persondb.setName(person.getName());
+			persondb.setLastName(person.getLastName());
+			 _servicePerson.addOrUpdate(persondb);
+		}
+			
+
+	
 		return "redirect:/";
 		
 	}

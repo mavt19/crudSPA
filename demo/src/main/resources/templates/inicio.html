@@ -4,18 +4,29 @@
 </head>
 <body>
 	<div align="center">
+		<div th:with="condition=${id1}"
+			th:remove="tag">
+			
+			<h2 th:if="${condition}">Hello!</h2>
+			<h1 th:unless="${condition}" class="xxx">Something else</h1>
+		</div>
 		<form th:action="@{/save}" th:object="${person}" method="post">
 			<input type="text" readonly="readonly" th:field="*{id}"><br>
 			<input type="text" th:field="*{name}" placeholder="Ingrese Nombre"><br>
 			<input type="text" th:field="*{lastName}"
 				placeholder="Ingrese Apellido"><br>
-				
-			<input	type="submit" value="Guardar">
+			<!-- <input type="date" th:field="*{birthdate}"
+				placeholder="Ingrese fecha de Nacimiento"><br> -->
+
+			<input type="submit" value="Save">
 		</form>
+
+
 	</div>
-	<br><br>
+	<br>
+	<br>
 	<div align="center">
-		<table border="2">
+		<table border="2" style="color: white;">
 			<thead>
 				<tr>
 					<th>#ID</th>
@@ -32,13 +43,11 @@
 					<td th:text="${list.name}"></td>
 					<td th:text="${list.lastName}"></td>
 					<td th:text="${list.birthdate}"></td>
-					<td><a th:href="@{/} + ${list.id}"
-							th:text="'Editar'" title="Editar Registro">
-						</a>||
-						<a th:href="@{/remove/} + ${list.id}"
-							th:text="'Eliminar'" title="Eliminar Registro" onclick="return confirm('sure?');">
-						</a>
-					</td>
+					<td><a th:href="@{/} + ${list.id}" th:text="'Editar'"
+						title="Editar Registro"> </a>|| <a
+						th:href="@{/remove/} + ${list.id}" th:text="'Eliminar'"
+						title="Eliminar Registro" onclick="return confirm('sure?');">
+					</a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -3,10 +3,15 @@ package pe.com.vera.demo.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -29,10 +34,18 @@ public class Person implements Serializable{
 	private Long id;
 	private String name;
 	private String lastName;
-	@JsonFormat(pattern="dd/MM/yyyy")
-	@JsonDeserialize(using=LocalDateDeserializer.class)
-	@JsonSerialize(using=LocalDateSerializer.class)
+//	@JsonFormat(pattern="dd/MM/yyyy")
+//	@JsonDeserialize(using=LocalDateDeserializer.class)
+//	@JsonSerialize(using=LocalDateSerializer.class)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate birthdate;
+	
+	@PrePersist
+	public void createdAt() {
+		this.birthdate=LocalDate.now();
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}

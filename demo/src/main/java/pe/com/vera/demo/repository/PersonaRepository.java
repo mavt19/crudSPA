@@ -6,4 +6,5 @@ import pe.com.vera.demo.entity.Person;
 
 public interface PersonaRepository extends CrudRepository<Person, Long>{
 
+	
 }
